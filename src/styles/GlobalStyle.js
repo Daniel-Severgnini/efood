@@ -2,7 +2,7 @@
 import { colors } from './theme'
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap');
 
   * {
     box-sizing: border-box;
@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Roboto', sans-serif;
+    font-weight: 400;
     background: ${colors.page};
     color: ${colors.primary};
     line-height: 1.4;

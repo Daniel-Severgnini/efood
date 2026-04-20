@@ -35,7 +35,7 @@ export const DrawerTitle = styled.h3`
   margin: 0 0 16px;
   color: ${colors.light};
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
 `
 
 export const DrawerText = styled.p`
@@ -128,7 +128,7 @@ export const TotalLine = styled.div`
   justify-content: space-between;
   color: ${colors.light};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
 `
 
 const ActionBase = styled.button`
@@ -137,7 +137,7 @@ const ActionBase = styled.button`
   border: 0;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -172,7 +172,7 @@ export const FormLabel = styled.label`
   margin-bottom: 8px;
   color: ${colors.light};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
 `
 
 export const FormInput = styled.input`
@@ -254,7 +254,7 @@ export const ModalDescription = styled.p`
 export const ModalServing = styled.p`
   margin: 0 0 16px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
 `
 
 export const ModalAdd = styled(PrimaryAction)`

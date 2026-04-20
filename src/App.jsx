@@ -16,7 +16,8 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/perfil' element={<ProfilePage />} />
-        <Route path='/perfil/modal' element={<ProfileModalPage />} />
+        <Route path='/perfil/modal/:productId' element={<ProfileModalPage />} />
+        <Route path='/perfil/modal' element={<Navigate to='/perfil' replace />} />
         <Route path='/carrinho' element={<CartPage />} />
         <Route path='/entrega' element={<DeliveryPage />} />
         <Route path='/pagamento' element={<PaymentPage />} />

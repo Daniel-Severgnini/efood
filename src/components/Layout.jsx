@@ -56,8 +56,8 @@ export const Inner = styled.div`
 
 const HeaderLogo = styled.img`
   display: block;
-  width: 154px;
-  height: 59px;
+  width: 125px;
+  height: 58px;
   max-width: 100%;
   object-fit: contain;
 `
@@ -125,7 +125,7 @@ const ProfileHeaderContent = styled(Inner)`
 const HeaderNavigation = styled(Link)`
   margin-top: 42px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 900;
 
   &:hover {
     color: ${colors.primaryDark};
@@ -141,7 +141,7 @@ const HeaderCart = styled.span`
   justify-self: end;
   margin-top: 42px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 900;
   text-align: right;
 
   @media (max-width: 900px) {
@@ -237,7 +237,7 @@ const FooterContent = styled.div`
 
 const FooterLogoLink = styled(Link)`
   display: block;
-  width: 154px;
+  width: 125px;
   margin: 0 auto;
   line-height: 0;
 `

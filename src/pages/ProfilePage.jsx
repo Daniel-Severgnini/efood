@@ -1,7 +1,7 @@
 ﻿import { ProfileScene } from '../components/ProfileScene'
 
 function ProfilePage() {
-  return <ProfileScene actionTo='/perfil/modal' />
+  return <ProfileScene />
 }
 
 export default ProfilePage

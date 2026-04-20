@@ -30,7 +30,7 @@ function CartPage() {
   }
 
   return (
-    <ProfileScene actionTo='/perfil/modal'>
+    <ProfileScene>
       <DimmingOverlay $withDrawer onClick={() => navigate('/perfil')} aria-label='Fechar carrinho' role='button' />
       <RightDrawer>
         <CartList>

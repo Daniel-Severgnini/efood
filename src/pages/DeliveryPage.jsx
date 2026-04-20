@@ -99,7 +99,7 @@ function DeliveryPage() {
   }
 
   return (
-    <ProfileScene actionTo='/perfil/modal'>
+    <ProfileScene>
       <DimmingOverlay $withDrawer onClick={() => navigate('/carrinho')} aria-label='Voltar para o carrinho' role='button' />
       <RightDrawer>
         <form onSubmit={handleSubmit} noValidate>

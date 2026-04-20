@@ -125,7 +125,7 @@ function PaymentPage() {
   }
 
   return (
-    <ProfileScene actionTo='/perfil/modal'>
+    <ProfileScene>
       <DimmingOverlay $withDrawer onClick={() => navigate('/entrega')} aria-label='Voltar para a entrega' role='button' />
       <RightDrawer>
         <form onSubmit={handleSubmit} noValidate>

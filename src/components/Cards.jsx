@@ -43,7 +43,7 @@ const Tag = styled.span`
   background: ${colors.primary};
   color: ${colors.light};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
   padding: 6px 8px;
 `
 
@@ -62,7 +62,7 @@ const RestaurantName = styled.h3`
   margin: 0;
   color: ${colors.primary};
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 900;
 
   @media (max-width: 768px) {
     font-size: 24px;
@@ -73,7 +73,7 @@ const RestaurantRate = styled.p`
   margin: 0;
   color: ${colors.primary};
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 900;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -109,7 +109,7 @@ const MoreButton = styled(Link)`
   height: 34px;
   padding: 0 14px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
 
   &:hover {
     background: ${colors.primaryDark};
@@ -200,7 +200,7 @@ const AddButton = styled(Link)`
   background: ${colors.light};
   color: ${colors.primary};
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
 
   &:hover {
     background: ${colors.page};
@@ -210,14 +210,18 @@ const AddButton = styled(Link)`
 export function ProductsGrid({ products, actionTo, actionLabel = 'Adicionar ao carrinho' }) {
   return (
     <ProductGrid>
-      {products.map((product) => (
-        <ProductCardBox key={product.id}>
-          <ProductImage src={product.image} alt={product.name} />
-          <ProductName>{product.name}</ProductName>
-          <ProductDescription>{product.description}</ProductDescription>
-          <AddButton to={actionTo}>{actionLabel}</AddButton>
-        </ProductCardBox>
-      ))}
+      {products.map((product) => {
+        const actionTarget = typeof actionTo === 'function' ? actionTo(product) : actionTo
+
+        return (
+          <ProductCardBox key={product.id}>
+            <ProductImage src={product.image} alt={product.name} />
+            <ProductName>{product.name}</ProductName>
+            <ProductDescription>{product.description}</ProductDescription>
+            <AddButton to={actionTarget}>{actionLabel}</AddButton>
+          </ProductCardBox>
+        )
+      })}
     </ProductGrid>
   )
 }

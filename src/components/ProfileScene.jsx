@@ -10,7 +10,9 @@ import {
 import { ProductsGrid } from './Cards'
 import { useCart } from '../context/CartContext'
 
-export function ProfileScene({ children, actionTo = '/perfil/modal', cartLabel }) {
+const defaultActionTo = (product) => `/perfil/modal/${product.id}`
+
+export function ProfileScene({ children, actionTo = defaultActionTo, cartLabel }) {
   const { itemCount } = useCart()
   const resolvedCartLabel = cartLabel ?? `${itemCount} produto(s) no carrinho`
 

@@ -26,7 +26,7 @@ function ConfirmationPage() {
   }
 
   return (
-    <ProfileScene actionTo='/perfil/modal'>
+    <ProfileScene>
       <DimmingOverlay $withDrawer onClick={() => navigate('/pagamento')} aria-label='Voltar para pagamento' role='button' />
       <RightDrawer>
         <DrawerTitle>Pedido realizado - ({orderId})</DrawerTitle>
