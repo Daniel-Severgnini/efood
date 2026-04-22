@@ -81,13 +81,13 @@ const HomeHeadline = styled.h1`
   max-width: 540px;
   text-align: center;
   color: ${colors.primary};
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1.15;
   font-weight: 900;
 
   @media (max-width: 768px) {
     margin-top: 80px;
-    font-size: 34px;
+    font-size: 32px;
   }
 `
 
@@ -201,13 +201,13 @@ const HeroCuisine = styled.p`
 
 const HeroTitle = styled.h2`
   margin: 136px 0 0;
-  font-size: 52px;
+  font-size: 32px;
   font-weight: 900;
   line-height: 1.1;
 
   @media (max-width: 768px) {
     margin-top: 96px;
-    font-size: 36px;
+    font-size: 32px;
   }
 `
 

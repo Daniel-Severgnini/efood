@@ -241,13 +241,14 @@ export const ModalImage = styled.img`
 
 export const ModalTitle = styled.h3`
   margin: 0;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 900;
 `
 
 export const ModalDescription = styled.p`
   margin: 16px 0 24px;
   font-size: 14px;
+  font-weight: 400;
   line-height: 1.6;
 `
 

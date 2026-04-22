@@ -43,7 +43,7 @@ const Tag = styled.span`
   background: ${colors.primary};
   color: ${colors.light};
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 6px 8px;
 `
 
@@ -61,29 +61,21 @@ const TitleRow = styled.div`
 const RestaurantName = styled.h3`
   margin: 0;
   color: ${colors.primary};
-  font-size: 30px;
-  font-weight: 900;
-
-  @media (max-width: 768px) {
-    font-size: 24px;
-  }
+  font-size: 18px;
+  font-weight: 700;
 `
 
 const RestaurantRate = styled.p`
   margin: 0;
   color: ${colors.primary};
-  font-size: 30px;
-  font-weight: 900;
+  font-size: 18px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 
   span {
     color: #ffb930;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 24px;
   }
 `
 
@@ -92,12 +84,8 @@ const RestaurantDescription = styled.p`
   min-height: 124px;
   color: ${colors.primary};
   font-size: 18px;
+  font-weight: 700;
   line-height: 1.4;
-
-  @media (max-width: 768px) {
-    min-height: auto;
-    font-size: 16px;
-  }
 `
 
 const MoreButton = styled(Link)`
@@ -108,8 +96,8 @@ const MoreButton = styled(Link)`
   color: ${colors.light};
   height: 34px;
   padding: 0 14px;
-  font-size: 16px;
-  font-weight: 900;
+  font-size: 18px;
+  font-weight: 700;
 
   &:hover {
     background: ${colors.primaryDark};
@@ -174,14 +162,15 @@ const ProductImage = styled.img`
 const ProductName = styled.h3`
   margin: 8px 0;
   color: ${colors.light};
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 900;
 `
 
 const ProductDescription = styled.p`
   margin: 0 0 8px;
   color: ${colors.light};
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 1.45;
   min-height: 164px;
 

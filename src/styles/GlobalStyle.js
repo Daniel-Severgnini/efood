@@ -2,7 +2,7 @@
 import { colors } from './theme'
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&display=swap');
 
   * {
     box-sizing: border-box;
