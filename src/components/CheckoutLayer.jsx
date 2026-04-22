@@ -255,7 +255,7 @@ export const ModalDescription = styled.p`
 export const ModalServing = styled.p`
   margin: 0 0 16px;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 400;
 `
 
 export const ModalAdd = styled(PrimaryAction)`

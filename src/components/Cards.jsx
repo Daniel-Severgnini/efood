@@ -83,7 +83,7 @@ const RestaurantDescription = styled.p`
   margin: 16px 0;
   min-height: 124px;
   color: ${colors.primary};
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
 `
