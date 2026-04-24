@@ -104,31 +104,35 @@ const MoreButton = styled(Link)`
   }
 `
 
-export function RestaurantsGrid({ restaurants }) {
+export function RestaurantsGrid({ restaurants, detailsTo = (restaurant) => `/perfil/${restaurant.id}` }) {
   return (
     <HomeGrid>
-      {restaurants.map((restaurant) => (
-        <RestaurantCardBox key={restaurant.id}>
-          <RestaurantImageWrap>
-            <RestaurantImage src={restaurant.image} alt={restaurant.name} />
-            <Tags>
-              {restaurant.tags.map((tag) => (
-                <Tag key={tag}>{tag}</Tag>
-              ))}
-            </Tags>
-          </RestaurantImageWrap>
-          <RestaurantBody>
-            <TitleRow>
-              <RestaurantName>{restaurant.name}</RestaurantName>
-              <RestaurantRate>
-                {restaurant.rating} <span aria-hidden='true'>★</span>
-              </RestaurantRate>
-            </TitleRow>
-            <RestaurantDescription>{restaurant.description}</RestaurantDescription>
-            <MoreButton to='/perfil'>Saiba mais</MoreButton>
-          </RestaurantBody>
-        </RestaurantCardBox>
-      ))}
+      {restaurants.map((restaurant) => {
+        const detailsTarget = typeof detailsTo === 'function' ? detailsTo(restaurant) : detailsTo
+
+        return (
+          <RestaurantCardBox key={restaurant.id}>
+            <RestaurantImageWrap>
+              <RestaurantImage src={restaurant.image} alt={restaurant.name} />
+              <Tags>
+                {restaurant.tags.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
+              </Tags>
+            </RestaurantImageWrap>
+            <RestaurantBody>
+              <TitleRow>
+                <RestaurantName>{restaurant.name}</RestaurantName>
+                <RestaurantRate>
+                  {restaurant.rating} <span aria-hidden='true'>★</span>
+                </RestaurantRate>
+              </TitleRow>
+              <RestaurantDescription>{restaurant.description}</RestaurantDescription>
+              <MoreButton to={detailsTarget}>Saiba mais</MoreButton>
+            </RestaurantBody>
+          </RestaurantCardBox>
+        )
+      })}
     </HomeGrid>
   )
 }

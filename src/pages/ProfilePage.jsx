@@ -1,8 +1,10 @@
-﻿import { ProfileScene } from '../components/ProfileScene'
+import { useParams } from 'react-router-dom'
+import { ProfileScene } from '../components/ProfileScene'
 
 function ProfilePage() {
-  return <ProfileScene />
+  const { restaurantId } = useParams()
+
+  return <ProfileScene restaurantId={restaurantId} />
 }
 
 export default ProfilePage
-
