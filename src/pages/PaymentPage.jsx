@@ -38,7 +38,7 @@ function formatLimitedDigits(value, limit) {
 
 function PaymentPage() {
   const navigate = useNavigate()
-  const { itemCount } = useCart()
+  const { itemCount, totalLabel } = useCart()
   const [formData, setFormData] = useState(initialForm)
   const [errors, setErrors] = useState({})
 
@@ -129,7 +129,7 @@ function PaymentPage() {
       <DimmingOverlay $withDrawer onClick={() => navigate('/entrega')} aria-label='Voltar para a entrega' role='button' />
       <RightDrawer>
         <form onSubmit={handleSubmit} noValidate>
-          <DrawerTitle>Pagamento - Valor a pagar R$ 190,90</DrawerTitle>
+          <DrawerTitle>Pagamento - Valor a pagar {totalLabel}</DrawerTitle>
 
           <InputGroup>
             <FormLabel htmlFor='cardName'>Nome no cartão</FormLabel>

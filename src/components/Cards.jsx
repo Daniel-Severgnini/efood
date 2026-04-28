@@ -104,7 +104,7 @@ const MoreButton = styled(Link)`
   }
 `
 
-export function RestaurantsGrid({ restaurants, detailsTo = (restaurant) => `/perfil/${restaurant.id}` }) {
+export function RestaurantsGrid({ restaurants, detailsTo = '/perfil' }) {
   return (
     <HomeGrid>
       {restaurants.map((restaurant) => {

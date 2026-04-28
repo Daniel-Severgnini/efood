@@ -12,29 +12,22 @@ import {
 } from '../components/CheckoutLayer'
 import { ProfileScene } from '../components/ProfileScene'
 import { useCart } from '../context/CartContext'
-import { useRestaurants } from '../context/RestaurantsContext'
-
-function findRestaurant(restaurants, restaurantId) {
-  return restaurants.find((restaurant) => String(restaurant.id) === String(restaurantId))
-}
+import { products } from '../data/mockData'
 
 function ProfileModalPage() {
-  const { restaurantId, productId } = useParams()
+  const { productId } = useParams()
   const navigate = useNavigate()
   const { addItem } = useCart()
-  const { restaurants, loading } = useRestaurants()
-
-  const selectedRestaurant = findRestaurant(restaurants, restaurantId)
-  const selectedProduct = selectedRestaurant?.products.find((product) => String(product.id) === String(productId))
+  const selectedProduct = products.find((product) => String(product.id) === productId)
 
   useEffect(() => {
-    if (!loading && (!selectedRestaurant || !selectedProduct)) {
-      navigate(`/perfil/${restaurantId ?? 1}`, { replace: true })
+    if (!selectedProduct) {
+      navigate('/perfil', { replace: true })
     }
-  }, [loading, selectedRestaurant, selectedProduct, restaurantId, navigate])
+  }, [selectedProduct, navigate])
 
-  if (!selectedRestaurant || !selectedProduct) {
-    return <ProfileScene restaurantId={restaurantId} />
+  if (!selectedProduct) {
+    return null
   }
 
   const handleAddToCart = () => {
@@ -43,15 +36,11 @@ function ProfileModalPage() {
   }
 
   return (
-    <ProfileScene restaurantId={selectedRestaurant.id}>
-      <DimmingOverlay
-        onClick={() => navigate(`/perfil/${selectedRestaurant.id}`)}
-        role='button'
-        aria-label='Fechar modal'
-      />
+    <ProfileScene>
+      <DimmingOverlay onClick={() => navigate('/perfil')} role='button' aria-label='Fechar modal' />
       <ModalContainer>
-        <ModalClose as={Link} to={`/perfil/${selectedRestaurant.id}`} aria-label='Fechar modal'>
-          ×
+        <ModalClose as={Link} to='/perfil' aria-label='Fechar modal'>
+          x
         </ModalClose>
         <ModalImage src={selectedProduct.image} alt={selectedProduct.name} />
         <div>
