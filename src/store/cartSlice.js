@@ -20,7 +20,7 @@ const cartSlice = createSlice({
             name: product.name,
             image: product.image,
             price: product.price,
-            priceValue: product.priceValue,
+            priceValue: Number(product.priceValue || 0),
           },
         }
       },
