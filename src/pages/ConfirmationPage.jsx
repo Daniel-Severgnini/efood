@@ -1,5 +1,5 @@
 ﻿import { useEffect, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { DimmingOverlay, DrawerText, DrawerTitle, PrimaryAction, RightDrawer } from '../components/CheckoutLayer'
 import { ProfileScene } from '../components/ProfileScene'
 import { useCart } from '../context/CartContext'
@@ -11,14 +11,19 @@ function createOrderId() {
 
 function ConfirmationPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { itemCount, clearCart } = useCart()
   const orderId = useMemo(() => createOrderId(), [])
+  const activeRestaurantId = searchParams.get('restaurante')
+  const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
+  const cartPath = `/carrinho${cartQuery}`
+  const paymentPath = `/pagamento${cartQuery}`
 
   useEffect(() => {
     if (itemCount === 0) {
-      navigate('/carrinho', { replace: true })
+      navigate(cartPath, { replace: true })
     }
-  }, [itemCount, navigate])
+  }, [cartPath, itemCount, navigate])
 
   const handleFinish = () => {
     clearCart()
@@ -26,8 +31,8 @@ function ConfirmationPage() {
   }
 
   return (
-    <ProfileScene>
-      <DimmingOverlay $withDrawer onClick={() => navigate('/pagamento')} aria-label='Voltar para pagamento' role='button' />
+    <ProfileScene restaurantId={activeRestaurantId}>
+      <DimmingOverlay $withDrawer onClick={() => navigate(paymentPath)} aria-label='Voltar para pagamento' role='button' />
       <RightDrawer>
         <DrawerTitle>Pedido realizado - ({orderId})</DrawerTitle>
         <DrawerText>

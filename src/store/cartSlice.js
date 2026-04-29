@@ -21,6 +21,7 @@ const cartSlice = createSlice({
             image: product.image,
             price: product.price,
             priceValue: Number(product.priceValue || 0),
+            restaurantId: product.restaurantId,
           },
         }
       },

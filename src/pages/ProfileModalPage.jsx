@@ -33,8 +33,8 @@ function ProfileModalPage() {
   }
 
   const handleAddToCart = () => {
-    addItem(selectedProduct)
-    navigate('/carrinho')
+    addItem({ ...selectedProduct, restaurantId: selectedRestaurant.id })
+    navigate(`/carrinho?restaurante=${selectedRestaurant.id}`)
   }
 
   return (

@@ -137,7 +137,7 @@ const HeaderNavigation = styled(Link)`
   }
 `
 
-const HeaderCart = styled.span`
+const HeaderCart = styled(Link)`
   justify-self: end;
   margin-top: 42px;
   font-size: 18px;
@@ -160,7 +160,7 @@ const LogoCenter = styled(Link)`
   }
 `
 
-export function ProfileHeader({ cartLabel = '0 produto(s) no carrinho' }) {
+export function ProfileHeader({ cartLabel = '0 produto(s) no carrinho', cartTo = '/carrinho' }) {
   return (
     <ProfileHeaderWrapper>
       <ProfileHeaderContent>
@@ -168,7 +168,7 @@ export function ProfileHeader({ cartLabel = '0 produto(s) no carrinho' }) {
         <LogoCenter to='/' aria-label='Página inicial efood'>
           <HeaderLogo src={logo} alt='efood' />
         </LogoCenter>
-        <HeaderCart>{cartLabel}</HeaderCart>
+        <HeaderCart to={cartTo}>{cartLabel}</HeaderCart>
       </ProfileHeaderContent>
     </ProfileHeaderWrapper>
   )

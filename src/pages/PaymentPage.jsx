@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   DimmingOverlay,
   DrawerTitle,
@@ -38,15 +38,21 @@ function formatLimitedDigits(value, limit) {
 
 function PaymentPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { itemCount, totalLabel } = useCart()
   const [formData, setFormData] = useState(initialForm)
   const [errors, setErrors] = useState({})
+  const activeRestaurantId = searchParams.get('restaurante')
+  const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
+  const cartPath = `/carrinho${cartQuery}`
+  const deliveryPath = `/entrega${cartQuery}`
+  const confirmationPath = `/confirmacao${cartQuery}`
 
   useEffect(() => {
     if (itemCount === 0) {
-      navigate('/carrinho', { replace: true })
+      navigate(cartPath, { replace: true })
     }
-  }, [itemCount, navigate])
+  }, [cartPath, itemCount, navigate])
 
   const handleChange = (event) => {
     const { id, value } = event.target
@@ -121,12 +127,12 @@ function PaymentPage() {
       return
     }
 
-    navigate('/confirmacao')
+    navigate(confirmationPath)
   }
 
   return (
-    <ProfileScene>
-      <DimmingOverlay $withDrawer onClick={() => navigate('/entrega')} aria-label='Voltar para a entrega' role='button' />
+    <ProfileScene restaurantId={activeRestaurantId}>
+      <DimmingOverlay $withDrawer onClick={() => navigate(deliveryPath)} aria-label='Voltar para a entrega' role='button' />
       <RightDrawer>
         <form onSubmit={handleSubmit} noValidate>
           <DrawerTitle>Pagamento - Valor a pagar {totalLabel}</DrawerTitle>
@@ -196,7 +202,7 @@ function PaymentPage() {
           </SplitRow>
 
           <PrimaryAction type='submit'>Finalizar pagamento</PrimaryAction>
-          <SecondaryAction as={Link} to='/entrega'>
+          <SecondaryAction as={Link} to={deliveryPath}>
             Voltar para a edição de endereço
           </SecondaryAction>
         </form>

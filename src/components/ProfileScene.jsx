@@ -30,10 +30,12 @@ export function ProfileScene({ children, actionTo, cartLabel, restaurantId }) {
   const products = restaurant?.products ?? []
   const defaultActionTo = (product) => `/perfil/${restaurant?.id ?? 1}/modal/${product.id}`
   const resolvedActionTo = actionTo ?? defaultActionTo
+  const currentRestaurantId = restaurant?.id ?? restaurantId
+  const cartTo = currentRestaurantId ? `/carrinho?restaurante=${currentRestaurantId}` : '/carrinho'
 
   return (
     <ProfileViewport>
-      <ProfileHeader cartLabel={resolvedCartLabel} />
+      <ProfileHeader cartLabel={resolvedCartLabel} cartTo={cartTo} />
       {restaurant && <RestaurantHero cuisine={restaurant.cuisine} title={restaurant.name} image={restaurant.heroImage} />}
       <ProfileProductsSection>
         <Inner>

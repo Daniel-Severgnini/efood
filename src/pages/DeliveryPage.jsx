@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   DimmingOverlay,
   DrawerTitle,
@@ -36,15 +36,20 @@ function formatZip(value) {
 
 function DeliveryPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { itemCount } = useCart()
   const [formData, setFormData] = useState(initialForm)
   const [errors, setErrors] = useState({})
+  const activeRestaurantId = searchParams.get('restaurante')
+  const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
+  const cartPath = `/carrinho${cartQuery}`
+  const paymentPath = `/pagamento${cartQuery}`
 
   useEffect(() => {
     if (itemCount === 0) {
-      navigate('/carrinho', { replace: true })
+      navigate(cartPath, { replace: true })
     }
-  }, [itemCount, navigate])
+  }, [cartPath, itemCount, navigate])
 
   const handleChange = (event) => {
     const { id, value } = event.target
@@ -95,12 +100,12 @@ function DeliveryPage() {
       return
     }
 
-    navigate('/pagamento')
+    navigate(paymentPath)
   }
 
   return (
-    <ProfileScene>
-      <DimmingOverlay $withDrawer onClick={() => navigate('/carrinho')} aria-label='Voltar para o carrinho' role='button' />
+    <ProfileScene restaurantId={activeRestaurantId}>
+      <DimmingOverlay $withDrawer onClick={() => navigate(cartPath)} aria-label='Voltar para o carrinho' role='button' />
       <RightDrawer>
         <form onSubmit={handleSubmit} noValidate>
           <DrawerTitle>Entrega</DrawerTitle>
@@ -150,7 +155,7 @@ function DeliveryPage() {
           </InputGroup>
 
           <PrimaryAction type='submit'>Continuar com o pagamento</PrimaryAction>
-          <SecondaryAction as={Link} to='/carrinho'>
+          <SecondaryAction as={Link} to={cartPath}>
             Voltar para o carrinho
           </SecondaryAction>
         </form>
