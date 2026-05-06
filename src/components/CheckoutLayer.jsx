@@ -51,15 +51,17 @@ export const CartList = styled.div`
 `
 
 export const CartItem = styled.article`
+  position: relative;
   display: grid;
-  grid-template-columns: 82px minmax(0, 1fr) auto;
+  grid-template-columns: 82px minmax(0, 1fr);
   gap: 8px 10px;
   padding: 8px;
+  min-height: 100px;
   background: ${colors.light};
   align-items: start;
 
   @media (max-width: 440px) {
-    grid-template-columns: 72px minmax(0, 1fr) auto;
+    grid-template-columns: 72px minmax(0, 1fr);
   }
 `
 
@@ -92,7 +94,9 @@ export const CartDetails = styled.div`
 `
 
 export const RemoveButton = styled.button`
-  margin-top: 0;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
   width: 24px;
   height: 24px;
   border: 0;
