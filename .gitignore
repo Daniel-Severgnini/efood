@@ -15,6 +15,7 @@ coverage
 .turbo
 .cache
 .vite-cache
+.edge-efood-test-profile
 .eslintcache
 
 # Local env files
