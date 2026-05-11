@@ -1,32 +1,37 @@
-﻿import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { DimmingOverlay, DrawerText, DrawerTitle, PrimaryAction, RightDrawer } from '../components/CheckoutLayer'
 import { ProfileScene } from '../components/ProfileScene'
 import { useCart } from '../context/CartContext'
-
-function createOrderId() {
-  const random = Math.floor(100000000 + Math.random() * 900000000)
-  return String(random)
-}
+import { clearCheckout } from '../store/checkoutSlice'
 
 function ConfirmationPage() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { itemCount, clearCart } = useCart()
-  const orderId = useMemo(() => createOrderId(), [])
+  const order = useSelector((state) => state.checkout.order)
   const activeRestaurantId = searchParams.get('restaurante')
   const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
   const cartPath = `/carrinho${cartQuery}`
   const paymentPath = `/pagamento${cartQuery}`
+  const orderId = order?.orderId
 
   useEffect(() => {
     if (itemCount === 0) {
       navigate(cartPath, { replace: true })
+      return
     }
-  }, [cartPath, itemCount, navigate])
+
+    if (!orderId) {
+      navigate(paymentPath, { replace: true })
+    }
+  }, [cartPath, itemCount, navigate, orderId, paymentPath])
 
   const handleFinish = () => {
     clearCart()
+    dispatch(clearCheckout())
     navigate('/')
   }
 
@@ -34,7 +39,7 @@ function ConfirmationPage() {
     <ProfileScene restaurantId={activeRestaurantId}>
       <DimmingOverlay $withDrawer onClick={() => navigate(paymentPath)} aria-label='Voltar para pagamento' role='button' />
       <RightDrawer>
-        <DrawerTitle>Pedido realizado - ({orderId})</DrawerTitle>
+        <DrawerTitle>Pedido realizado - {orderId ?? ''}</DrawerTitle>
         <DrawerText>
           Estamos felizes em informar que seu pedido já está em processo de preparação, e em breve, será entregue
           no endereço fornecido.

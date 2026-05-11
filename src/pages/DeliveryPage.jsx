@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   DimmingOverlay,
@@ -14,6 +15,7 @@ import {
 } from '../components/CheckoutLayer'
 import { ProfileScene } from '../components/ProfileScene'
 import { useCart } from '../context/CartContext'
+import { clearCheckoutError, setDeliveryData } from '../store/checkoutSlice'
 
 const initialForm = {
   receiver: '',
@@ -35,10 +37,12 @@ function formatZip(value) {
 }
 
 function DeliveryPage() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { itemCount } = useCart()
-  const [formData, setFormData] = useState(initialForm)
+  const savedDelivery = useSelector((state) => state.checkout.delivery)
+  const [formData, setFormData] = useState(savedDelivery ?? initialForm)
   const [errors, setErrors] = useState({})
   const activeRestaurantId = searchParams.get('restaurante')
   const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
@@ -100,6 +104,8 @@ function DeliveryPage() {
       return
     }
 
+    dispatch(setDeliveryData(formData))
+    dispatch(clearCheckoutError())
     navigate(paymentPath)
   }
 

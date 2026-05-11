@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   DimmingOverlay,
@@ -14,6 +15,7 @@ import {
 } from '../components/CheckoutLayer'
 import { ProfileScene } from '../components/ProfileScene'
 import { useCart } from '../context/CartContext'
+import { setPaymentData, submitCheckout } from '../store/checkoutSlice'
 
 const initialForm = {
   cardName: '',
@@ -36,23 +38,38 @@ function formatLimitedDigits(value, limit) {
   return value.replace(/\D/g, '').slice(0, limit)
 }
 
+function hasDeliveryData(delivery) {
+  return Boolean(delivery.receiver && delivery.address && delivery.city && delivery.zip && delivery.number)
+}
+
 function PaymentPage() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { itemCount, totalLabel } = useCart()
-  const [formData, setFormData] = useState(initialForm)
+  const { itemCount, items, totalLabel } = useCart()
+  const delivery = useSelector((state) => state.checkout.delivery)
+  const savedPayment = useSelector((state) => state.checkout.payment)
+  const checkoutStatus = useSelector((state) => state.checkout.status)
+  const checkoutError = useSelector((state) => state.checkout.error)
+  const [formData, setFormData] = useState(savedPayment ?? initialForm)
   const [errors, setErrors] = useState({})
   const activeRestaurantId = searchParams.get('restaurante')
   const cartQuery = activeRestaurantId ? `?restaurante=${activeRestaurantId}` : ''
   const cartPath = `/carrinho${cartQuery}`
   const deliveryPath = `/entrega${cartQuery}`
   const confirmationPath = `/confirmacao${cartQuery}`
+  const isSubmitting = checkoutStatus === 'loading'
 
   useEffect(() => {
     if (itemCount === 0) {
       navigate(cartPath, { replace: true })
+      return
     }
-  }, [cartPath, itemCount, navigate])
+
+    if (!hasDeliveryData(delivery)) {
+      navigate(deliveryPath, { replace: true })
+    }
+  }, [cartPath, delivery, deliveryPath, itemCount, navigate])
 
   const handleChange = (event) => {
     const { id, value } = event.target
@@ -117,7 +134,7 @@ function PaymentPage() {
     return nextErrors
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const nextErrors = validateForm()
@@ -127,7 +144,12 @@ function PaymentPage() {
       return
     }
 
-    navigate(confirmationPath)
+    dispatch(setPaymentData(formData))
+    const result = await dispatch(submitCheckout({ items, delivery, payment: formData }))
+
+    if (submitCheckout.fulfilled.match(result)) {
+      navigate(confirmationPath)
+    }
   }
 
   return (
@@ -201,7 +223,11 @@ function PaymentPage() {
             </InputGroup>
           </SplitRow>
 
-          <PrimaryAction type='submit'>Finalizar pagamento</PrimaryAction>
+          {checkoutError && <FormError>{checkoutError}</FormError>}
+
+          <PrimaryAction type='submit' disabled={isSubmitting}>
+            {isSubmitting ? 'Finalizando...' : 'Finalizar pagamento'}
+          </PrimaryAction>
           <SecondaryAction as={Link} to={deliveryPath}>
             Voltar para a edição de endereço
           </SecondaryAction>
